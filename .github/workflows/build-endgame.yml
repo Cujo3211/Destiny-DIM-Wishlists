@@ -3,7 +3,7 @@ name: Build Endgame Wishlist
 on:
   push:
     paths:
-      - 'payload/endgame.txt.gz.b64'
+      - 'payload/endgame.part*'
   workflow_dispatch:
 
 permissions:
@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Decode wishlist
         run: |
-          base64 -d payload/endgame.txt.gz.b64 > /tmp/endgame.txt.gz
+          cat payload/endgame.part* | base64 -d > /tmp/endgame.txt.gz
           gzip -dc /tmp/endgame.txt.gz > Endgame.txt
       - name: Commit generated wishlist
         run: |
